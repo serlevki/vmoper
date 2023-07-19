@@ -1,0 +1,146 @@
+CRM:
+  groups:
+  - name: CRM
+    rules:
+      - alert: OPENSEARCH-A_CPU_Usage
+        expr: 100 - (avg(rate(node_cpu_seconds_total{job="crm-prod-opensearch-nodes", instance="209.38.251.193:9100", mode="idle"}[1m])) * 100) > 70
+        for: 5m
+        labels:
+          severity: critical
+          env: prod
+          project: crm
+          target: devops
+
+      - alert: OPENSEARCH-B_CPU_Usage
+        expr: 100 - (avg(rate(node_cpu_seconds_total{job="crm-prod-opensearch-nodes", instance="209.38.251.191:9100", mode="idle"}[1m])) * 100) > 70
+        for: 5m
+        labels:
+          severity: critical
+          env: prod
+          project: crm
+          target: devops
+
+      - alert: OPENSEARCH-C_CPU_Usage
+        expr: 100 - (avg(rate(node_cpu_seconds_total{job="crm-prod-opensearch-nodes", instance="209.38.251.198:9100", mode="idle"}[1m])) * 100) > 70
+        for: 5m
+        labels:
+          severity: critical
+          env: prod
+          project: crm
+          target: devops
+
+      - alert: PGSQL_MAIN_CPU_Usage
+        expr: 100 - (avg(irate(node_cpu_seconds_total{job="crm-prod-pgsql", instance="104.248.194.173:9100", mode="idle"}[1m])) * 100) > 70
+        for: 5m
+        labels:
+          severity: critical
+          env: prod
+          product: pgsql-main
+          project: crm
+          target: devops
+
+      - alert: PGSQL_ARCHSQL_CPU_Usage
+        expr: 100 - (avg(irate(node_cpu_seconds_total{job="crm-prod-pgsql", instance="161.35.219.246:9100", mode="idle"}[1m])) * 100) > 70
+        for: 5m
+        labels:
+          severity: critical
+          env: prod
+          product: pgsql-archsql
+          project: crm
+          target: devops
+
+      - alert: PROD_Services_Availability
+        expr: kube_deployment_status_replicas_available{namespace="platform", env="prod01"} / kube_deployment_spec_replicas{namespace="platform", env="prod01"} < 0.2
+        for: 5m
+        labels:
+          severity: critical
+          env: prod
+          product: application
+          project: crm
+          target: devops
+
+      - alert: CRM_PLATFORM_Pod_Restarts
+        expr: sum(increase(kube_pod_container_status_restarts_total{env="prod01", namespace="platform", container=~"(accountview|affiliate|affiliate-api|analytics-api|analytics2|attachments|audit|auth2|backoffice-graphql|backoffice-graphql-ws|brand-config-service|brand-remover|callback|click-to-call|client-portal-graphql|clients-distributor|coingecko-provider|didlogic-api|email|etf-provider|external-api|hierarchy|hierarchy-updater|lead|lead-updater|liquidity-provider-adapter|localization|maintenance|matching-engine|mt-connector|mt4-alias|mt4-connector-adapter|mt4-favorite|mt4-provider|mt4-static|mt4-streaming|mt5-connector-adapter|mt5-provider|mt5-streaming|note|notification|notification-gateway|opensea-provider|operator|operator-config|payment|payment-view|profile|profileview|referral|rules-profile|scheduler|spring-boot-admin|status-alert|status-client|support-portal-graphql|swagger|trading-account|trading-activity|trading-gateway|we-trading|we-trading-chart|we-trading-provider|we-trading-streaming|wet-streaming)"}[1h])) by (container) > 1
+        for: 5m
+        labels:
+          severity: critical
+          env: prod01
+          product: application
+          project: crm
+          target: devops
+
+      - alert: Kafka_Lag_hierarchy_user_updated_events
+        expr: sum(kafka_consumer_fetch_manager_records_lag{project="crm", env="prod01", namespace="platform", topic="hierarchy_user_updated_events"}) > 10000
+        for: 5m
+        labels:
+          severity: critical
+          env: prod01
+          product: kafka-lag
+          project: crm
+          target: devops
+      
+      - alert: Kafka_Lag_profile_events
+        expr: sum(kafka_consumer_fetch_manager_records_lag{project="crm", env="prod01", namespace="platform", topic="profile_events"}) > 1000
+        for: 5m
+        labels:
+          env: prod01
+          product: kafka-lag
+          project: crm
+          target: devops
+
+      - alert: CRM_PROD_Apps_RPS_Lost
+        expr: avg_over_time(sum by (application) (rate(http_server_requests_seconds_count{uri!~".*actuator.*|.*prometheus*|/health|/info|root", application!="matching-engine",env="prod"}[15s]))[10s:3s]) < 1e-5
+        for: 5m
+        labels:
+          env: prod
+          product: application
+          project: crm
+          target: devops
+
+      - alert: CRM_PROD_Apps_PGSQL_Connection_Timeouts
+        expr: rate(sum by (application) (hikaricp_connections_timeout_total{env="prod01"})[1m]) < 0
+        for: 5m
+        labels:
+          env: prod
+          product: application
+          project: crm
+          target: devops
+
+      - alert: brazil_storm2_CPU_Usage
+        expr: 100 - (avg(rate(node_cpu_seconds_total{job="backoffice-proxy-nodes", instance="default-crm.me:443", mode="idle"}[1m])) * 100) > 70
+        for: 5m
+        labels:
+          severity: warning
+          env: prod
+          product: backoffice-proxy
+          project: crm
+          target: devops
+        annotations:
+          description: '[brazil] storm2 - CPU Usage alert'
+          summary: '[brazil] storm2 - CPU Usage is above the threshold'
+
+      - alert: brazil_storm1_CPU_Usage
+        expr: 100 - (avg(rate(node_cpu_seconds_total{job="backoffice-proxy-nodes", instance="trendsales.cc:443", mode="idle"}[1m])) * 100) > 70
+        for: 5m
+        labels:
+          severity: warning
+          env: prod
+          product: backoffice-proxy
+          project: crm
+          target: devops
+        annotations:
+          description: '[brazil] storm1 - CPU Usage alert'
+          summary: '[brazil] storm1 - CPU Usage is above the threshold'
+
+      - alert: brazil_storm3_CPU_Usage
+        expr: 100 - (avg(rate(node_cpu_seconds_total{job="backoffice-proxy-nodes", instance="default-crm.cc:443", mode="idle"}[1m])) * 100) > 70
+        for: 5m
+        labels:
+          severity: warning
+          env: prod
+          product: backoffice-proxy
+          project: crm
+          target: devops
+        annotations:
+          description: '[brazil] storm3 - CPU Usage alert'
+          summary: '[brazil] storm3 - CPU Usage is above the threshold'

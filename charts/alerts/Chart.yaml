@@ -1,0 +1,5 @@
+apiVersion: v2
+type: application
+name: grafana-alert
+version: 2.0
+description: Custom alerts for grafana

@@ -1,0 +1,303 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "datasource",
+            "uid": "grafana"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "target": {
+            "limit": 100,
+            "matchAny": false,
+            "tags": [],
+            "type": "dashboard"
+          },
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 97,
+    "links": [],
+    "liveNow": false,
+    "panels": [
+      {
+        "alert": {
+          "alertRuleTags": {},
+          "conditions": [
+            {
+              "evaluator": {
+                "params": [
+                  8
+                ],
+                "type": "lt"
+              },
+              "operator": {
+                "type": "and"
+              },
+              "query": {
+                "params": [
+                  "A",
+                  "1h",
+                  "now"
+                ]
+              },
+              "reducer": {
+                "params": [],
+                "type": "avg"
+              },
+              "type": "query"
+            }
+          ],
+          "executionErrorState": "alerting",
+          "for": "3h",
+          "frequency": "1h",
+          "handler": 1,
+          "name": "Cherry Balance alert",
+          "noDataState": "alerting",
+          "notifications": [
+            {
+              "uid": "0kEciZFnk"
+            }
+          ]
+        },
+        "aliasColors": {},
+        "bars": true,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": {
+          "type": "prometheus",
+          "uid": "a55fa731-0b8b-4843-a845-fb82ddf4dcfe"
+        },
+        "fill": 2,
+        "fillGradient": 10,
+        "gridPos": {
+          "h": 10,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "hiddenSeries": false,
+        "id": 2,
+        "interval": "5m",
+        "legend": {
+          "alignAsTable": true,
+          "avg": false,
+          "current": true,
+          "max": false,
+          "min": false,
+          "rightSide": true,
+          "show": true,
+          "sort": "current",
+          "sortDesc": true,
+          "total": false,
+          "values": true
+        },
+        "lines": false,
+        "linewidth": 0,
+        "nullPointMode": "connected",
+        "options": {
+          "alertThreshold": false
+        },
+        "percentage": false,
+        "pluginVersion": "9.5.1",
+        "pointradius": 0.5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "a55fa731-0b8b-4843-a845-fb82ddf4dcfe"
+            },
+            "expr": "cherry_balance_credit",
+            "instant": true,
+            "interval": "1h",
+            "legendFormat": "{{proxy}} - {{mail}}",
+            "refId": "A"
+          }
+        ],
+        "thresholds": [
+          {
+            "$$hashKey": "object:255",
+            "colorMode": "critical",
+            "fill": true,
+            "line": true,
+            "op": "lt",
+            "value": 20,
+            "yaxis": "left"
+          }
+        ],
+        "timeRegions": [],
+        "title": "CherryServers Balance",
+        "tooltip": {
+          "shared": false,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "transparent": true,
+        "type": "graph",
+        "xaxis": {
+          "mode": "series",
+          "show": false,
+          "values": [
+            "current"
+          ]
+        },
+        "yaxes": [
+          {
+            "$$hashKey": "object:310",
+            "format": "short",
+            "logBase": 1,
+            "show": false
+          },
+          {
+            "$$hashKey": "object:311",
+            "format": "short",
+            "label": "",
+            "logBase": 1,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": true,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": {
+          "type": "prometheus",
+          "uid": "a55fa731-0b8b-4843-a845-fb82ddf4dcfe"
+        },
+        "fill": 2,
+        "fillGradient": 10,
+        "gridPos": {
+          "h": 10,
+          "w": 24,
+          "x": 0,
+          "y": 10
+        },
+        "hiddenSeries": false,
+        "id": 3,
+        "interval": "10m",
+        "legend": {
+          "alignAsTable": true,
+          "avg": false,
+          "current": true,
+          "max": false,
+          "min": false,
+          "rightSide": true,
+          "show": true,
+          "sort": "current",
+          "sortDesc": true,
+          "total": false,
+          "values": true
+        },
+        "lines": false,
+        "linewidth": 0,
+        "nullPointMode": "connected",
+        "options": {
+          "alertThreshold": false
+        },
+        "percentage": false,
+        "pluginVersion": "9.5.1",
+        "pointradius": 0.5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "a55fa731-0b8b-4843-a845-fb82ddf4dcfe"
+            },
+            "editorMode": "code",
+            "expr": "bitlaunch_balance",
+            "instant": true,
+            "interval": "1h",
+            "legendFormat": "{{description}} - {{mail}}",
+            "refId": "A"
+          }
+        ],
+        "thresholds": [
+          {
+            "$$hashKey": "object:344",
+            "colorMode": "critical",
+            "fill": true,
+            "line": true,
+            "op": "lt",
+            "value": 20,
+            "yaxis": "left"
+          }
+        ],
+        "timeRegions": [],
+        "title": "BitLaunch Balance",
+        "tooltip": {
+          "shared": false,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "transparent": true,
+        "type": "graph",
+        "xaxis": {
+          "mode": "series",
+          "show": false,
+          "values": [
+            "current"
+          ]
+        },
+        "yaxes": [
+          {
+            "$$hashKey": "object:384",
+            "format": "short",
+            "logBase": 1,
+            "show": false
+          },
+          {
+            "$$hashKey": "object:385",
+            "format": "short",
+            "label": "",
+            "logBase": 1,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false
+        }
+      }
+    ],
+    "refresh": "",
+    "schemaVersion": 38,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": []
+    },
+    "time": {
+      "from": "now-7d",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "Billing Cherry/BitLaunch",
+    "uid": "wBR6J3d7k",
+    "version": 7,
+    "weekStart": ""
+  }

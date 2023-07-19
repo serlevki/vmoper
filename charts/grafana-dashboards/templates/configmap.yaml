@@ -1,0 +1,19 @@
+{{- range $path, $data := .Files.Glob "dashboards/**.json" }}
+{{- $dirsList := $path | splitList "/" }}
+{{- $rootDir := index $dirsList 1 }} {{/* get root dirs names under dashboards dir */}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: {{ $.Values.namespace }}
+  name: grafana-dashboard-{{ base $path }}
+  labels:
+    {{- include "grafana-dashboards.labels" $ | nindent 4 }}
+    # this labes is used to discover configmap by grafana sidecar
+    grafana_dashboard: "allowed"
+  annotations:
+    dashboards-folder-name: "/tmp/dash/{{ $rootDir }}"
+data:
+  {{ base $path }}: |-
+    {{- $data | toString | nindent 4 }}
+{{ end }}

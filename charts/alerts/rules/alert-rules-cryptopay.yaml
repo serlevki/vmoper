@@ -1,0 +1,21 @@
+CRYPTOPAY:  
+  groups:
+  - name: CRYPTOPAY
+    rules:
+    - alert: Balances_mismatch
+      expr: explorer_processed_balances_total{cluster_name="crypto-dev01", network="eth"} - explorer_processed_wallets_total{cluster_name="crypto-dev01", network="eth"} * explorer_supported_currencies_total{cluster_name="crypto-dev01", network="eth"} > 0
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        description: Balances mismatch alert
+        summary: Balances mismatch detected in crypto-dev01
+
+    - alert: BTC_Failed_Transactions
+      expr: core_transactions_states_total{cluster_name="crypto-prod01", currency="BTC", state="failed"} > 1
+      for: 10s
+      labels:
+        target: crp_devs
+      annotations:
+        description: Number of failed BTC transactions more than 10
+        summary: BTC Failed Transactions exceed threshold

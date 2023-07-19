@@ -1,0 +1,57 @@
+BI:    
+  groups:
+  - name: BI
+    rules:
+      - alert: AirflowCPUUsage
+        expr: 100 - (avg(rate(node_cpu_seconds_total{project="bi",env="airflow", mode="idle"}[1m]) * 100)) > 70
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High CPU usage in Airflow"
+          description: "CPU usage in Airflow is above the threshold"
+
+      - alert: AirflowMemoryUsageTypes
+        expr: node_memory_MemFree_bytes{project="bi",env="airflow"} < 2e+10
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Low Memory Free in Airflow"
+          description: "Memory free in Airflow is below the threshold"
+
+      - alert: MetabasePublicCPUUsage
+        expr: 100 - (avg(rate(node_cpu_seconds_total{job="metabase-node",instance="206.188.196.216:9100", mode="idle"}[1m]) * 100)) > 70
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High CPU usage in Metabase Public"
+          description: "CPU usage in Metabase Public is above the threshold"
+
+      - alert: MetabasePrivateCPUUsage
+        expr: 100 - (avg(rate(node_cpu_seconds_total{job="metabase-node",instance="192.153.57.62:9100", mode="idle"}[1m]) * 100)) > 70
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High CPU usage in Metabase Private"
+          description: "CPU usage in Metabase Private is above the threshold"
+
+      - alert: DHWCPUUsage
+        expr: 100 - (avg(rate(node_cpu_seconds_total{job="datawarehouse",instance="185.149.133.194:9100" , mode="idle"}[1m]) * 100)) > 70
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High CPU usage in DWH"
+          description: "CPU usage in DWH is above the threshold"
+
+      - alert: DWHMemoryUsage
+        expr: node_memory_MemFree_bytes{job="datawarehouse", instance="185.149.133.194:9100"} < 5e+08
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Low Memory Free in DWH"
+          description: "Memory free in DWH is below the threshold"

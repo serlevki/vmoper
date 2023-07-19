@@ -1,0 +1,25 @@
+GLOBAL:
+ groups:
+  - name: GLOBAL
+    rules:
+      - alert: CherryServersBalance
+        expr: cherry_balance_credit < 20
+        for: 5m
+        labels:
+          severity: critical
+          target: devops
+          type: billing
+        annotations:
+          summary: "Low CherryServers Balance"
+          description: "CherryServers balance is below the threshold"
+
+      - alert: BitLaunchBalance
+        expr: bitlaunch_balance < 20
+        for: 5m
+        labels:
+          severity: critical
+          target: devops
+          type: billing
+        annotations:
+          summary: "Low BitLaunch Balance"
+          description: "BitLaunch balance is below the threshold"

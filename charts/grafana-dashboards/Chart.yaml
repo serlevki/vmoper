@@ -1,0 +1,5 @@
+apiVersion: v2
+type: application
+name: grafana-dashboards
+version: 2.0
+description: Custom dashboards for grafana

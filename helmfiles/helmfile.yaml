@@ -1,0 +1,37 @@
+---
+repositories:
+- name: victoria-metrics
+  url: https://victoriametrics.github.io/helm-charts/
+
+- name: argo
+  url: https://argoproj.github.io/argo-helm/
+
+
+helmDefaults:
+  wait: false
+  timeout: 200
+
+releases:
+  
+- name: vmoper
+  namespace: vm
+  chart: vm/victoria-metrics-k8s-stack
+  values:
+    - ../config/vmoper.yaml
+
+- name: gf-dash
+  namespace: vm
+  chart: ../charts/grafana-dashboards
+
+- name: alerts
+  namespace: vm
+  chart: ../charts/alerts
+
+- name: argocd
+  namespace: argocd
+  createNamespace: true
+  chart: argo/argo-cd
+  version: 5.40.0
+  kubeContext: kind-kind
+#  values:
+#    - ../config/argocd.yaml

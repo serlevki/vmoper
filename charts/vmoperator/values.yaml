@@ -1,8 +1,7 @@
-victoria-metrics-k8s-stack:
-
 grafana:
   sidecar:
     dashboards:
+      enabled: true
       additionalDashboardLabels: {}
       additionalDashboardAnnotations: {}
       label: grafana_dashboard

@@ -1,3 +1,4 @@
+victoria-metrics-k8s-stack:
 nameOverride: ""
 fullnameOverride: ""
 tenant: "0"

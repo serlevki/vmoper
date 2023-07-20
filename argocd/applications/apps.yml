@@ -1,0 +1,47 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana-dashboards
+  namespace: argocd
+spec:
+  project: infrastructure
+  destination:
+    namespace: vm
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: charts/grafana-dashboards
+    repoURL: 'https://github.com/serlevki/vmoper'
+    targetRevision: main
+    helm:
+      valueFiles:
+        - values.yaml
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+    - ApplyOutOfSyncOnly=true
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vmoperator
+  namespace: argocd
+spec:
+  project: infrastructure
+  destination:
+    namespace: vm
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: charts/vmoperator
+    repoURL: 'https://github.com/serlevki/vmoper'
+    targetRevision: main
+    helm:
+      valueFiles:
+        - values.yaml
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+    - ApplyOutOfSyncOnly=true

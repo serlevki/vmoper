@@ -901,6 +901,15 @@ grafana:
       jsonData: {}
       #  timeInterval: "1m"
     dashboards:
+      label: grafana_dashboard
+      labelValue: "allowed"
+      folderAnnotation: dashboards-folder-name
+      folder: /tmp/dashboards/
+      
+      provider:
+        foldersFromFilesStructure: true
+        allowUiUpdates: true
+      
       additionalDashboardLabels: {}
       additionalDashboardAnnotations: {}
       enabled: true

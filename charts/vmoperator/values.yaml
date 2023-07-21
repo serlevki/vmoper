@@ -156,9 +156,7 @@ additionalVictoriaMetricsMap:
           target: devops
 
       - alert: CRM_PLATFORM_Pod_Restarts
-        expr: sum(increase(kube_pod_container_status_restarts_total{env="prod01", namespace="platform", 
-container=~"(accountview|affiliate|affiliate-api|analytics-api|analytics2|attachments|audit|auth2|backoffice-graphql|backoffice-graphql-ws|brand-config-service|brand-remover|callback|click-to-call|client-portal-graphql|clients-distributor|coingecko-provider|didlogic-api|email|etf-provider|external-api|hierarchy|hierarchy-updater|lead|lead-updater|liquidity-provider-adapter|localization|maintenance|matching-engine|mt-connector|mt4-alias|mt4-connector-adapter|mt4-favorite|mt4-provider|mt4-static|mt4-streaming|mt5-connector-adapter|mt5-provider|mt5-streaming|note|notification|notification-gateway|opensea-provider|operator|operator-config|payment|payment-view|profile|profileview|referral|rules-profile|scheduler|spring-boot-admin|status-alert|status-client|support-portal-graphql|swagger|trading-account|trading-activity|trading-gateway|we-trading|we-trading-chart|we-trading-provider|we-trading-streaming|wet-streaming)"}[1h])) 
-by (container) > 1
+        expr: sum(increase(kube_pod_container_status_restarts_total{env="prod01", namespace="platform", container=~"(accountview|affiliate|affiliate-api|analytics-api|analytics2|attachments|audit|auth2|backoffice-graphql|backoffice-graphql-ws|brand-config-service|brand-remover|callback|click-to-call|client-portal-graphql|clients-distributor|coingecko-provider|didlogic-api|email|etf-provider|external-api|hierarchy|hierarchy-updater|lead|lead-updater|liquidity-provider-adapter|localization|maintenance|matching-engine|mt-connector|mt4-alias|mt4-connector-adapter|mt4-favorite|mt4-provider|mt4-static|mt4-streaming|mt5-connector-adapter|mt5-provider|mt5-streaming|note|notification|notification-gateway|opensea-provider|operator|operator-config|payment|payment-view|profile|profileview|referral|rules-profile|scheduler|spring-boot-admin|status-alert|status-client|support-portal-graphql|swagger|trading-account|trading-activity|trading-gateway|we-trading|we-trading-chart|we-trading-provider|we-trading-streaming|wet-streaming)"}[1h])) by (container) > 1
         for: 5m
         labels:
           severity: critical
@@ -282,8 +280,7 @@ by (container) > 1
   - name: CRYPTOPAY
     rules:
     - alert: Balances_mismatch
-      expr: explorer_processed_balances_total{cluster_name="crypto-dev01", network="eth"} - explorer_processed_wallets_total{cluster_name="crypto-dev01", network="eth"} * 
-explorer_supported_currencies_total{cluster_name="crypto-dev01", network="eth"} > 0
+      expr: explorer_processed_balances_total{cluster_name="crypto-dev01", network="eth"} - explorer_processed_wallets_total{cluster_name="crypto-dev01", network="eth"} * explorer_supported_currencies_total{cluster_name="crypto-dev01", network="eth"} > 0
       for: 5m
       labels:
         severity: warning
@@ -299,7 +296,6 @@ explorer_supported_currencies_total{cluster_name="crypto-dev01", network="eth"} 
       annotations:
         description: Number of failed BTC transactions more than 10
         summary: BTC Failed Transactions exceed threshold
-
 
 
 

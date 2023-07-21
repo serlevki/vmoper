@@ -6,7 +6,7 @@ grafana:
       label: grafana_dashboard
       labelValue: "allowed"
       folderAnnotation: dashboards-folder-name
-      folder: /tmp/dash
+      folder: /tmp/dashboards/
       
       provider:
         foldersFromFilesStructure: true

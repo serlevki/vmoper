@@ -10,15 +10,15 @@ releases:
   namespace: vm
   chart: vm/victoria-metrics-k8s-stack
   values:
-    - ../config/vmoper.yaml
-#  hooks:
-#      - events: ["prepare"]
-#        showlogs: true
-#        command: "kubectl"
-#        args:
-#          - "apply"
-#          - "-f"
-#          - "https://raw.githubusercontent.com/VictoriaMetrics/helm-charts/master/charts/victoria-metrics-k8s-stack/crds/crd.yaml"
+    - ../config/helmfile-config.yaml
+  hooks:
+      - events: ["prepare"]
+        showlogs: true
+        command: "apply"
+        args:
+          - "delete"
+          - "-f"
+          - "https://raw.githubusercontent.com/VictoriaMetrics/helm-charts/master/charts/victoria-metrics-k8s-stack/crds/crd.yaml"
 
 - name: gf-dash
   namespace: vm

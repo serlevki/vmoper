@@ -1,17 +1,16 @@
-victoria-metrics-k8s-stack:  
-  grafana:
-    sidecar:
-      dashboards:
-        label: grafana_dashboard
-        labelValue: "allowed"
-        folderAnnotation: dashboards-folder-name
-        folder: /tmp/dashboards/
-        
-        provider:
-          foldersFromFilesStructure: true
-          allowUiUpdates: true
+grafana:
+  sidecar:
+    dashboards:
+      label: grafana_dashboard
+      labelValue: "allowed"
+      folderAnnotation: dashboards-folder-name
+      folder: /tmp/dashboards/
+      
+      provider:
+        foldersFromFilesStructure: true
+        allowUiUpdates: true
 
-  additionalVictoriaMetricsMap:
+additionalVictoriaMetricsMap:
   custom:
     groups:
     - name: BI

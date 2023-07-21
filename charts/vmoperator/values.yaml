@@ -914,8 +914,7 @@ grafana:
       provider:
         foldersFromFilesStructure: true
         allowUiUpdates: true
-      additionalDashboardLabels: {}
-      additionalDashboardAnnotations: {}
+
       enabled: true
       multicluster: false
 

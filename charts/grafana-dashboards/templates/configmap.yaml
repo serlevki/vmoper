@@ -12,7 +12,7 @@ metadata:
     # this labes is used to discover configmap by grafana sidecar
     grafana_dashboard: "allowed"
   annotations:
-    dashboards-folder-name: "/tmp/dash/{{ $rootDir }}"
+    dashboards-folder-name: "/tmp/dashboards/{{ $rootDir }}"
 data:
   {{ base $path }}: |-
     {{- $data | toString | nindent 4 }}

@@ -22,6 +22,7 @@ spec:
     syncOptions:
     - ApplyOutOfSyncOnly=true
     - ServerSideApply=true
+    - CreateNamespace=true
 
 ---
 apiVersion: argoproj.io/v1alpha1
@@ -47,4 +48,5 @@ spec:
       prune: true
     syncOptions:
     - ApplyOutOfSyncOnly=true
+    - CreateNamespace=true
  
